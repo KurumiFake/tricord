@@ -1,0 +1,74 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: LinsaFTW <25271111+linsaftw@users.noreply.github.com>
+Date: Fri, 25 Feb 2022 12:28:31 -0300
+Subject: [PATCH] (FlameCord) InitialHandler Processing State
+
+
+diff --git a/proxy/src/main/java/net/md_5/bungee/connection/InitialHandler.java b/proxy/src/main/java/net/md_5/bungee/connection/InitialHandler.java
+index 1ffbfd6d..fb77676e 100644
+--- a/proxy/src/main/java/net/md_5/bungee/connection/InitialHandler.java
++++ b/proxy/src/main/java/net/md_5/bungee/connection/InitialHandler.java
+@@ -125,12 +125,12 @@ public class InitialHandler extends PacketHandler implements PendingConnection
+     private enum State
+     {
+ 
+-        HANDSHAKE, STATUS, PING, USERNAME, ENCRYPT, FINISHING;
++        PROCESSING, PROCESSING_USERNAME, HANDSHAKE, STATUS, PING, USERNAME, ENCRYPT, FINISHING;
+     }
+ 
+     private boolean canSendKickMessage()
+     {
+-        return thisState == State.USERNAME || thisState == State.ENCRYPT || thisState == State.FINISHING;
++        return thisState == State.PROCESSING_USERNAME || thisState == State.USERNAME || thisState == State.ENCRYPT || thisState == State.FINISHING;
+     }
+ 
+     @Override
+@@ -245,6 +245,7 @@ public class InitialHandler extends PacketHandler implements PendingConnection
+     public void handle(StatusRequest statusRequest) throws Exception
+     {
+         Preconditions.checkState( thisState == State.STATUS, "Not expecting STATUS" );
++        thisState = State.PROCESSING;
+ 
+         ServerInfo forced = AbstractReconnectHandler.getForcedHost( this );
+         final String motd = ( forced != null ) ? forced.getMotd() : listener.getMotd();
+@@ -308,6 +309,7 @@ public class InitialHandler extends PacketHandler implements PendingConnection
+     {
+         // FlameCord - Never accept invalid packets
+         Preconditions.checkState( thisState == State.PING, "Not expecting PING" );
++        thisState = State.PROCESSING;
+ 
+         unsafe.sendPacket( ping );
+ 
+@@ -319,6 +321,7 @@ public class InitialHandler extends PacketHandler implements PendingConnection
+     public void handle(Handshake handshake) throws Exception
+     {
+         Preconditions.checkState( thisState == State.HANDSHAKE, "Not expecting HANDSHAKE" );
++        thisState = State.PROCESSING;
+         this.handshake = handshake;
+         ch.setVersion( handshake.getProtocolVersion() );
+ 
+@@ -389,6 +392,7 @@ public class InitialHandler extends PacketHandler implements PendingConnection
+     public void handle(LoginRequest loginRequest) throws Exception
+     {
+         Preconditions.checkState( thisState == State.USERNAME, "Not expecting USERNAME" );
++        thisState = State.PROCESSING_USERNAME;
+ 
+         if ( !AllowedCharacters.isValidName( loginRequest.getData(), onlineMode ) )
+         {
+@@ -699,14 +703,14 @@ public class InitialHandler extends PacketHandler implements PendingConnection
+     @Override
+     public void setOnlineMode(boolean onlineMode)
+     {
+-        Preconditions.checkState( thisState == State.USERNAME, "Can only set online mode status whilst state is username" );
++        Preconditions.checkState( thisState == State.USERNAME || thisState == State.PROCESSING_USERNAME, "Can only set online mode status whilst state is username" );
+         this.onlineMode = onlineMode;
+     }
+ 
+     @Override
+     public void setUniqueId(UUID uuid)
+     {
+-        Preconditions.checkState( thisState == State.USERNAME, "Can only set uuid while state is username" );
++        Preconditions.checkState( thisState == State.USERNAME || thisState == State.PROCESSING_USERNAME, "Can only set uuid while state is username" );
+         Preconditions.checkState( !onlineMode, "Can only set uuid when online mode is false" );
+         this.uniqueId = uuid;
+     }

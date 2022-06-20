@@ -1,0 +1,22 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: foss-mc <69294560+foss-mc@users.noreply.github.com>
+Date: Wed, 16 Dec 2020 18:43:17 +0800
+Subject: [PATCH] (FlameCord) Don't declare uuid unless it's null
+
+
+diff --git a/proxy/src/main/java/net/md_5/bungee/connection/InitialHandler.java b/proxy/src/main/java/net/md_5/bungee/connection/InitialHandler.java
+index 8b836f9d..1ffbfd6d 100644
+--- a/proxy/src/main/java/net/md_5/bungee/connection/InitialHandler.java
++++ b/proxy/src/main/java/net/md_5/bungee/connection/InitialHandler.java
+@@ -514,7 +514,10 @@ public class InitialHandler extends PacketHandler implements PendingConnection
+                     {
+                         loginProfile = obj;
+                         name = obj.getName();
+-                        uniqueId = Util.getUUID( obj.getId() );
++                        // FlameCord - Don't declare uuid unless it's null
++                        if (uniqueId == null) {
++                            uniqueId = Util.getUUID(obj.getId());
++                        }
+                         finish();
+                         return;
+                     }

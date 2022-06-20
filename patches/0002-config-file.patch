@@ -1,0 +1,55 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: KurumiFake <kurumiisshidowife@gmail.com>
+Date: Mon, 20 Jun 2022 14:44:39 +0700
+Subject: [PATCH] config file
+
+
+diff --git a/proxy/src/main/java/io/github/waterfallmc/waterfall/conf/WaterfallConfiguration.java b/proxy/src/main/java/io/github/waterfallmc/waterfall/conf/WaterfallConfiguration.java
+index 966d2442..cbf46a3e 100644
+--- a/proxy/src/main/java/io/github/waterfallmc/waterfall/conf/WaterfallConfiguration.java
++++ b/proxy/src/main/java/io/github/waterfallmc/waterfall/conf/WaterfallConfiguration.java
+@@ -7,7 +7,7 @@ import net.md_5.bungee.protocol.ProtocolConstants;
+ 
+ import java.io.File;
+ 
+-public class WaterfallConfiguration extends Configuration {
++public abstract class WaterfallConfiguration extends Configuration { // tricord - abstract
+ 
+     /**
+      * Whether we log InitialHandler connections
+diff --git a/proxy/src/main/java/me/kurumifake/tricord/conf/tricordConfiguration.java b/proxy/src/main/java/me/kurumifake/tricord/conf/tricordConfiguration.java
+new file mode 100644
+index 00000000..30ba0953
+--- /dev/null
++++ b/proxy/src/main/java/me/kurumifake/tricord/conf/tricordConfiguration.java
+@@ -0,0 +1,17 @@
++package me.kurumifake.tricord.conf;
++
++import java.io.File;
++
++import io.github.waterfallmc.waterfall.conf.WaterfallConfiguration;
++import net.md_5.bungee.conf.YamlConfig;
++
++public class IvanCordConfiguration extends WaterfallConfiguration {
++
++    @Override
++    public void load() {
++        super.load();
++        YamlConfig config = new YamlConfig( new File( "tricord.yml" ) );
++        config.load( false );
++    }
++
++}
+diff --git a/proxy/src/main/java/net/md_5/bungee/BungeeCord.java b/proxy/src/main/java/net/md_5/bungee/BungeeCord.java
+index 3b9aeb20..e49b2893 100644
+--- a/proxy/src/main/java/net/md_5/bungee/BungeeCord.java
++++ b/proxy/src/main/java/net/md_5/bungee/BungeeCord.java
+@@ -108,7 +108,7 @@ public class BungeeCord extends ProxyServer
+      * Configuration.
+      */
+     @Getter
+-    public final Configuration config = new WaterfallConfiguration();
++    public final Configuration config = new me.kurumifake.tricord.tricordConfiguration();
+     /**
+      * Localization bundle.
+      */
