@@ -1,0 +1,11 @@
+tricord-proxy
+
+# intellij
+*.iml
+*.ipr
+*.iws
+.idea/
+out/
+
+.project
+.settings
