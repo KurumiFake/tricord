@@ -4,8 +4,26 @@ Date: Thu, 24 Feb 2022 23:41:57 -0300
 Subject: [PATCH] (FlameCord) TCP Fast Open
 
 
+diff --git a/api/src/main/java/net/md_5/bungee/api/ProxyConfig.java b/api/src/main/java/net/md_5/bungee/api/ProxyConfig.java
+index 37dd21e8..91347f1a 100644
+--- a/api/src/main/java/net/md_5/bungee/api/ProxyConfig.java
++++ b/api/src/main/java/net/md_5/bungee/api/ProxyConfig.java
+@@ -277,4 +277,13 @@ public interface ProxyConfig
+      * @return the configured limit
+      */
+     int getPluginChannelNameLimit();
++
++    // tricord start
++    /**
++     * Gets the TCP fast open mode
++     *
++     * @return tcp fast open mode
++     */
++    int getTCPFastOpenMode();
++    // tricord end
+ }
 diff --git a/proxy/src/main/java/me/kurumifake/tricord/conf/tricordConfiguration.java b/proxy/src/main/java/me/kurumifake/tricord/conf/tricordConfiguration.java
-index c79f2311..bd1ed56b 100644
+index c79f2311..b914ed1b 100644
 --- a/proxy/src/main/java/me/kurumifake/tricord/conf/tricordConfiguration.java
 +++ b/proxy/src/main/java/me/kurumifake/tricord/conf/tricordConfiguration.java
 @@ -3,15 +3,20 @@ package me.kurumifake.tricord.conf;
@@ -18,19 +36,19 @@ index c79f2311..bd1ed56b 100644
 +@Getter
  public class tricordConfiguration extends WaterfallConfiguration {
  
-+    private int tcpFastOpen = 3;
++    private int getTCPFastOpenMode = 3;
 +
      @Override
      public void load() {
          super.load();
          YamlConfig config = new YamlConfig( new File( "tricord.yml" ) );
          config.load( false );
-+        tcpFastOpen = config.getInt( "tcp-fast-open", tcpFastOpen );
++        getTCPFastOpenMode = config.getInt( "tcp-fast-open", getTCPFastOpenMode );
      }
  
  }
 diff --git a/proxy/src/main/java/net/md_5/bungee/netty/PipelineUtils.java b/proxy/src/main/java/net/md_5/bungee/netty/PipelineUtils.java
-index a95193ba..fc077a00 100644
+index a95193ba..550cbd53 100644
 --- a/proxy/src/main/java/net/md_5/bungee/netty/PipelineUtils.java
 +++ b/proxy/src/main/java/net/md_5/bungee/netty/PipelineUtils.java
 @@ -192,6 +192,8 @@ public class PipelineUtils
@@ -38,7 +56,7 @@ index a95193ba..fc077a00 100644
              }
              ch.config().setOption( ChannelOption.TCP_NODELAY, true );
 +            // FlameCord - TCP Fast Open
-+            ch.config().setOption( ChannelOption.TCP_FASTOPEN, bungee.getConfig().getTcpFastOpen() );
++            ch.config().setOption( ChannelOption.TCP_FASTOPEN, ProxyServer.getInstance().getConfig().getTCPFastOpenMode() );
              ch.config().setAllocator( PooledByteBufAllocator.DEFAULT );
              ch.config().setWriteBufferWaterMark( MARK );
  
