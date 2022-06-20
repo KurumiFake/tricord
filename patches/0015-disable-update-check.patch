@@ -1,0 +1,26 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: KurumiFake <kurumiisshidowife@gmail.com>
+Date: Mon, 20 Jun 2022 22:39:03 +0700
+Subject: [PATCH] disable update check
+
+
+diff --git a/proxy/src/main/java/net/md_5/bungee/BungeeCordLauncher.java b/proxy/src/main/java/net/md_5/bungee/BungeeCordLauncher.java
+index db84a926..99f7b6d9 100644
+--- a/proxy/src/main/java/net/md_5/bungee/BungeeCordLauncher.java
++++ b/proxy/src/main/java/net/md_5/bungee/BungeeCordLauncher.java
+@@ -45,6 +45,7 @@ public class BungeeCordLauncher
+             return;
+         }
+ 
++        /* // tricord - comment
+         if ( BungeeCord.class.getPackage().getSpecificationVersion() != null && System.getProperty( "IReallyKnowWhatIAmDoingISwear" ) == null )
+         {
+             Date buildDate = new SimpleDateFormat( "yyyyMMdd" ).parse( BungeeCord.class.getPackage().getSpecificationVersion() );
+@@ -60,6 +61,7 @@ public class BungeeCordLauncher
+                 Thread.sleep( TimeUnit.SECONDS.toMillis( 10 ) );
+             }
+         }
++        */
+ 
+         BungeeCord bungee = new BungeeCord();
+         ProxyServer.setInstance( bungee );
