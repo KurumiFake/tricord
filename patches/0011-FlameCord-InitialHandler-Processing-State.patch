@@ -5,7 +5,7 @@ Subject: [PATCH] (FlameCord) InitialHandler Processing State
 
 
 diff --git a/proxy/src/main/java/net/md_5/bungee/connection/InitialHandler.java b/proxy/src/main/java/net/md_5/bungee/connection/InitialHandler.java
-index 1ffbfd6d..fb77676e 100644
+index 005a9f09..f4108f21 100644
 --- a/proxy/src/main/java/net/md_5/bungee/connection/InitialHandler.java
 +++ b/proxy/src/main/java/net/md_5/bungee/connection/InitialHandler.java
 @@ -125,12 +125,12 @@ public class InitialHandler extends PacketHandler implements PendingConnection
@@ -47,7 +47,7 @@ index 1ffbfd6d..fb77676e 100644
          this.handshake = handshake;
          ch.setVersion( handshake.getProtocolVersion() );
  
-@@ -389,6 +392,7 @@ public class InitialHandler extends PacketHandler implements PendingConnection
+@@ -385,6 +388,7 @@ public class InitialHandler extends PacketHandler implements PendingConnection
      public void handle(LoginRequest loginRequest) throws Exception
      {
          Preconditions.checkState( thisState == State.USERNAME, "Not expecting USERNAME" );
@@ -55,7 +55,7 @@ index 1ffbfd6d..fb77676e 100644
  
          if ( !AllowedCharacters.isValidName( loginRequest.getData(), onlineMode ) )
          {
-@@ -699,14 +703,14 @@ public class InitialHandler extends PacketHandler implements PendingConnection
+@@ -695,14 +699,14 @@ public class InitialHandler extends PacketHandler implements PendingConnection
      @Override
      public void setOnlineMode(boolean onlineMode)
      {

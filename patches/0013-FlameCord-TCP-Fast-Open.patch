@@ -30,7 +30,7 @@ index c79f2311..bd1ed56b 100644
  
  }
 diff --git a/proxy/src/main/java/net/md_5/bungee/netty/PipelineUtils.java b/proxy/src/main/java/net/md_5/bungee/netty/PipelineUtils.java
-index a95193ba..27b89280 100644
+index a95193ba..fc077a00 100644
 --- a/proxy/src/main/java/net/md_5/bungee/netty/PipelineUtils.java
 +++ b/proxy/src/main/java/net/md_5/bungee/netty/PipelineUtils.java
 @@ -192,6 +192,8 @@ public class PipelineUtils
@@ -38,7 +38,7 @@ index a95193ba..27b89280 100644
              }
              ch.config().setOption( ChannelOption.TCP_NODELAY, true );
 +            // FlameCord - TCP Fast Open
-+            ch.config().setOption( ChannelOption.TCP_FASTOPEN, ProxyServer.getInstance().getConfig().tcpFastOpen() );
++            ch.config().setOption( ChannelOption.TCP_FASTOPEN, bungee.getConfig().getTcpFastOpen() );
              ch.config().setAllocator( PooledByteBufAllocator.DEFAULT );
              ch.config().setWriteBufferWaterMark( MARK );
  

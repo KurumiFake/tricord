@@ -5,7 +5,7 @@ Subject: [PATCH] (FlameCord) Close connections & Don't flush if not necessary
 
 
 diff --git a/proxy/src/main/java/net/md_5/bungee/connection/InitialHandler.java b/proxy/src/main/java/net/md_5/bungee/connection/InitialHandler.java
-index 50764c0c..8b836f9d 100644
+index ed1fe41a..d091afa2 100644
 --- a/proxy/src/main/java/net/md_5/bungee/connection/InitialHandler.java
 +++ b/proxy/src/main/java/net/md_5/bungee/connection/InitialHandler.java
 @@ -194,6 +194,13 @@ public class InitialHandler extends PacketHandler implements PendingConnection
@@ -58,7 +58,7 @@ index 50764c0c..8b836f9d 100644
      }
  
      @Override
-@@ -626,7 +646,8 @@ public class InitialHandler extends PacketHandler implements PendingConnection
+@@ -622,7 +642,8 @@ public class InitialHandler extends PacketHandler implements PendingConnection
      {
          if ( canSendKickMessage() )
          {
