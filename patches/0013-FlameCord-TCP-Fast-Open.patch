@@ -49,15 +49,16 @@ index c79f2311..b4021aa6 100644
  
  }
 diff --git a/proxy/src/main/java/net/md_5/bungee/netty/PipelineUtils.java b/proxy/src/main/java/net/md_5/bungee/netty/PipelineUtils.java
-index a95193ba..550cbd53 100644
+index a95193ba..1cfb0d11 100644
 --- a/proxy/src/main/java/net/md_5/bungee/netty/PipelineUtils.java
 +++ b/proxy/src/main/java/net/md_5/bungee/netty/PipelineUtils.java
-@@ -192,6 +192,8 @@ public class PipelineUtils
+@@ -192,6 +192,9 @@ public class PipelineUtils
                  // IP_TOS is not supported (Windows XP / Windows Server 2003)
              }
              ch.config().setOption( ChannelOption.TCP_NODELAY, true );
-+            // FlameCord - TCP Fast Open
-+            ch.config().setOption( ChannelOption.TCP_FASTOPEN, ProxyServer.getInstance().getConfig().getTCPFastOpenMode() );
++            // tricord - TCP Fast Open
++            int tcpFastOpenMode = ProxyServer.getInstance().getConfig().getTCPFastOpenMode();
++            ch.config().setOption( ChannelOption.TCP_FASTOPEN, tcpFastOpenMode );
              ch.config().setAllocator( PooledByteBufAllocator.DEFAULT );
              ch.config().setWriteBufferWaterMark( MARK );
  
