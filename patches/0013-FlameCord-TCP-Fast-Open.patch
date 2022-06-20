@@ -23,10 +23,10 @@ index 37dd21e8..91347f1a 100644
 +    // tricord end
  }
 diff --git a/proxy/src/main/java/me/kurumifake/tricord/conf/tricordConfiguration.java b/proxy/src/main/java/me/kurumifake/tricord/conf/tricordConfiguration.java
-index c79f2311..b914ed1b 100644
+index c79f2311..b4021aa6 100644
 --- a/proxy/src/main/java/me/kurumifake/tricord/conf/tricordConfiguration.java
 +++ b/proxy/src/main/java/me/kurumifake/tricord/conf/tricordConfiguration.java
-@@ -3,15 +3,20 @@ package me.kurumifake.tricord.conf;
+@@ -3,15 +3,21 @@ package me.kurumifake.tricord.conf;
  import java.io.File;
  
  import io.github.waterfallmc.waterfall.conf.WaterfallConfiguration;
@@ -36,6 +36,7 @@ index c79f2311..b914ed1b 100644
 +@Getter
  public class tricordConfiguration extends WaterfallConfiguration {
  
++    @Accessors(fluent = true)
 +    private int getTCPFastOpenMode = 3;
 +
      @Override
