@@ -19,7 +19,7 @@ index 966d2442..cbf46a3e 100644
       * Whether we log InitialHandler connections
 diff --git a/proxy/src/main/java/me/kurumifake/tricord/conf/tricordConfiguration.java b/proxy/src/main/java/me/kurumifake/tricord/conf/tricordConfiguration.java
 new file mode 100644
-index 00000000..30ba0953
+index 00000000..c79f2311
 --- /dev/null
 +++ b/proxy/src/main/java/me/kurumifake/tricord/conf/tricordConfiguration.java
 @@ -0,0 +1,17 @@
@@ -30,7 +30,7 @@ index 00000000..30ba0953
 +import io.github.waterfallmc.waterfall.conf.WaterfallConfiguration;
 +import net.md_5.bungee.conf.YamlConfig;
 +
-+public class IvanCordConfiguration extends WaterfallConfiguration {
++public class tricordConfiguration extends WaterfallConfiguration {
 +
 +    @Override
 +    public void load() {

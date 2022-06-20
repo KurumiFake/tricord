@@ -1,0 +1,44 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: LinsaFTW <25271111+linsaftw@users.noreply.github.com>
+Date: Thu, 24 Feb 2022 23:41:57 -0300
+Subject: [PATCH] (FlameCord) TCP Fast Open
+
+
+diff --git a/proxy/src/main/java/me/kurumifake/tricord/conf/tricordConfiguration.java b/proxy/src/main/java/me/kurumifake/tricord/conf/tricordConfiguration.java
+index c79f2311..2daf1d5d 100644
+--- a/proxy/src/main/java/me/kurumifake/tricord/conf/tricordConfiguration.java
++++ b/proxy/src/main/java/me/kurumifake/tricord/conf/tricordConfiguration.java
+@@ -3,15 +3,20 @@ package me.kurumifake.tricord.conf;
+ import java.io.File;
+ 
+ import io.github.waterfallmc.waterfall.conf.WaterfallConfiguration;
++import lombok.Getter;
+ import net.md_5.bungee.conf.YamlConfig;
+ 
++@Getter
+ public class tricordConfiguration extends WaterfallConfiguration {
+ 
++    private int tcpFastOpen = 3;
++
+     @Override
+     public void load() {
+         super.load();
+         YamlConfig config = new YamlConfig( new File( "tricord.yml" ) );
+         config.load( false );
++        tcpFastOpen = config.getInt( "tcp-fast-open", tcpFastOpeny );
+     }
+ 
+ }
+diff --git a/proxy/src/main/java/net/md_5/bungee/netty/PipelineUtils.java b/proxy/src/main/java/net/md_5/bungee/netty/PipelineUtils.java
+index a95193ba..583af048 100644
+--- a/proxy/src/main/java/net/md_5/bungee/netty/PipelineUtils.java
++++ b/proxy/src/main/java/net/md_5/bungee/netty/PipelineUtils.java
+@@ -192,6 +192,8 @@ public class PipelineUtils
+                 // IP_TOS is not supported (Windows XP / Windows Server 2003)
+             }
+             ch.config().setOption( ChannelOption.TCP_NODELAY, true );
++            // FlameCord - TCP Fast Open
++            ch.config().setOption( ChannelOption.TCP_FASTOPEN, ProxyServer.getInstance().getConfig().getTcpFastOpen() );
+             ch.config().setAllocator( PooledByteBufAllocator.DEFAULT );
+             ch.config().setWriteBufferWaterMark( MARK );
+ 
