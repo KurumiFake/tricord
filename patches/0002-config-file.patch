@@ -41,7 +41,7 @@ index 00000000..c79f2311
 +
 +}
 diff --git a/proxy/src/main/java/net/md_5/bungee/BungeeCord.java b/proxy/src/main/java/net/md_5/bungee/BungeeCord.java
-index 3b9aeb20..e49b2893 100644
+index 3b9aeb20..ac10e281 100644
 --- a/proxy/src/main/java/net/md_5/bungee/BungeeCord.java
 +++ b/proxy/src/main/java/net/md_5/bungee/BungeeCord.java
 @@ -108,7 +108,7 @@ public class BungeeCord extends ProxyServer
@@ -49,7 +49,7 @@ index 3b9aeb20..e49b2893 100644
       */
      @Getter
 -    public final Configuration config = new WaterfallConfiguration();
-+    public final Configuration config = new me.kurumifake.tricord.tricordConfiguration();
++    public final Configuration config = new me.kurumifake.tricord.conf.tricordConfiguration();
      /**
       * Localization bundle.
       */

@@ -5,7 +5,7 @@ Subject: [PATCH] (FlameCord) TCP Fast Open
 
 
 diff --git a/proxy/src/main/java/me/kurumifake/tricord/conf/tricordConfiguration.java b/proxy/src/main/java/me/kurumifake/tricord/conf/tricordConfiguration.java
-index c79f2311..2daf1d5d 100644
+index c79f2311..bd1ed56b 100644
 --- a/proxy/src/main/java/me/kurumifake/tricord/conf/tricordConfiguration.java
 +++ b/proxy/src/main/java/me/kurumifake/tricord/conf/tricordConfiguration.java
 @@ -3,15 +3,20 @@ package me.kurumifake.tricord.conf;
@@ -25,12 +25,12 @@ index c79f2311..2daf1d5d 100644
          super.load();
          YamlConfig config = new YamlConfig( new File( "tricord.yml" ) );
          config.load( false );
-+        tcpFastOpen = config.getInt( "tcp-fast-open", tcpFastOpeny );
++        tcpFastOpen = config.getInt( "tcp-fast-open", tcpFastOpen );
      }
  
  }
 diff --git a/proxy/src/main/java/net/md_5/bungee/netty/PipelineUtils.java b/proxy/src/main/java/net/md_5/bungee/netty/PipelineUtils.java
-index a95193ba..583af048 100644
+index a95193ba..27b89280 100644
 --- a/proxy/src/main/java/net/md_5/bungee/netty/PipelineUtils.java
 +++ b/proxy/src/main/java/net/md_5/bungee/netty/PipelineUtils.java
 @@ -192,6 +192,8 @@ public class PipelineUtils
@@ -38,7 +38,7 @@ index a95193ba..583af048 100644
              }
              ch.config().setOption( ChannelOption.TCP_NODELAY, true );
 +            // FlameCord - TCP Fast Open
-+            ch.config().setOption( ChannelOption.TCP_FASTOPEN, ProxyServer.getInstance().getConfig().getTcpFastOpen() );
++            ch.config().setOption( ChannelOption.TCP_FASTOPEN, ProxyServer.getInstance().getConfig().tcpFastOpen() );
              ch.config().setAllocator( PooledByteBufAllocator.DEFAULT );
              ch.config().setWriteBufferWaterMark( MARK );
  
