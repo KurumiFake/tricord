@@ -320,7 +320,7 @@ index ba7fc59c..f85df596 100644
              user.unsafe().sendPacket( new Respawn( login.getDimension(), login.getWorldName(), login.getSeed(), login.getDifficulty(), login.getGameMode(), login.getPreviousGameMode(), login.getLevelType(), login.isDebug(), login.isFlat(), false, login.getDeathLocation() ) );
  
 diff --git a/proxy/src/main/java/net/md_5/bungee/UserConnection.java b/proxy/src/main/java/net/md_5/bungee/UserConnection.java
-index fa29cc41..4da2e367 100644
+index 4882db1c..93aa29d6 100644
 --- a/proxy/src/main/java/net/md_5/bungee/UserConnection.java
 +++ b/proxy/src/main/java/net/md_5/bungee/UserConnection.java
 @@ -127,15 +127,22 @@ public final class UserConnection implements ProxiedPlayer
@@ -355,7 +355,7 @@ index fa29cc41..4da2e367 100644
  
          this.displayName = name;
  
-@@ -791,14 +798,19 @@ public final class UserConnection implements ProxiedPlayer
+@@ -789,14 +796,19 @@ public final class UserConnection implements ProxiedPlayer
      }
  
      @Override

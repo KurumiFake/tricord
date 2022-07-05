@@ -19,7 +19,7 @@ index 469fe0e1..37dd21e8 100644
       * Time before users are disconnected due to no network activity.
       *
 diff --git a/proxy/src/main/java/net/md_5/bungee/UserConnection.java b/proxy/src/main/java/net/md_5/bungee/UserConnection.java
-index b44d13e5..fa29cc41 100644
+index b44d13e5..4882db1c 100644
 --- a/proxy/src/main/java/net/md_5/bungee/UserConnection.java
 +++ b/proxy/src/main/java/net/md_5/bungee/UserConnection.java
 @@ -354,6 +354,8 @@ public final class UserConnection implements ProxiedPlayer
@@ -31,7 +31,7 @@ index b44d13e5..fa29cc41 100644
              @Override
              @SuppressWarnings("ThrowableResultIgnored")
              public void operationComplete(ChannelFuture future) throws Exception
-@@ -368,17 +370,29 @@ public final class UserConnection implements ProxiedPlayer
+@@ -368,17 +370,27 @@ public final class UserConnection implements ProxiedPlayer
                      future.channel().close();
                      pendingConnects.remove( target );
  
@@ -63,13 +63,11 @@ index b44d13e5..fa29cc41 100644
 +                        } else
 +                        {
 +                            if (request.isSendFeedback()) sendMessage( bungee.getTranslation( "fallback_kick", connectionFailMessage( future.cause() ) ) );
-+
-+                            sendMessage( "§cCause: " + future.cause().getMessage() + " | " + future.cause().toString() );
 +                        }
                      }
                  }
              }
-@@ -389,6 +403,7 @@ public final class UserConnection implements ProxiedPlayer
+@@ -389,6 +401,7 @@ public final class UserConnection implements ProxiedPlayer
                  .handler( initializer )
                  .option( ChannelOption.CONNECT_TIMEOUT_MILLIS, request.getConnectTimeout() )
                  .remoteAddress( target.getAddress() );
