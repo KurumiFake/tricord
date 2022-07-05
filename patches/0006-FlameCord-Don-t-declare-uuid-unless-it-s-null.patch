@@ -5,10 +5,10 @@ Subject: [PATCH] (FlameCord) Don't declare uuid unless it's null
 
 
 diff --git a/proxy/src/main/java/net/md_5/bungee/connection/InitialHandler.java b/proxy/src/main/java/net/md_5/bungee/connection/InitialHandler.java
-index d091afa2..005a9f09 100644
+index 846cb39f..651f0d0c 100644
 --- a/proxy/src/main/java/net/md_5/bungee/connection/InitialHandler.java
 +++ b/proxy/src/main/java/net/md_5/bungee/connection/InitialHandler.java
-@@ -510,7 +510,10 @@ public class InitialHandler extends PacketHandler implements PendingConnection
+@@ -530,7 +530,10 @@ public class InitialHandler extends PacketHandler implements PendingConnection
                      {
                          loginProfile = obj;
                          name = obj.getName();
